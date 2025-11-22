@@ -244,7 +244,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-luxury-gold to-luxury-black"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/1.jpg" alt="Michael R." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/1.jpg" alt="Michael R." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
@@ -269,7 +269,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-luxury-blue to-luxury-black"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/2.jpg" alt="David C." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/2.jpg" alt="David C." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
@@ -294,7 +294,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-luxury-magenta to-luxury-black"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/3.jpg" alt="Sarah K." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/3.jpg" alt="Sarah K." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
@@ -319,7 +319,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-luxury-gold to-luxury-black"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/4.jpg" alt="Robert L." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/4.jpg" alt="Robert L." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
@@ -344,7 +344,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-luxury-magenta to-luxury-black"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/5.jpg" alt="Alex P." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/5.jpg" alt="Alex P." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
@@ -369,7 +369,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-luxury-blue to-luxury-black"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/6.jpg" alt="Sophia W." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/6.jpg" alt="Sophia W." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
@@ -424,7 +424,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-green-500 to-luxury-black"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/7.jpg" alt="Elena M." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/7.jpg" alt="Elena M." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
@@ -449,7 +449,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-luxury-white to-luxury-black"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/8.jpg" alt="Marcus T." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/8.jpg" alt="Marcus T." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
@@ -474,7 +474,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-luxury-gold to-luxury-magenta"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/9.jpg" alt="James D." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/9.jpg" alt="James D." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
@@ -499,7 +499,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-luxury-blue to-luxury-black"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/10.jpg" alt="Daniel K." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/10.jpg" alt="Daniel K." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
@@ -524,7 +524,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-green-500 to-luxury-black"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/11.jpg" alt="Dr. Emily S." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/11.jpg" alt="Dr. Emily S." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
@@ -549,7 +549,7 @@
                                 <div class="relative w-12 h-12 flex-shrink-0">
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-luxury-magenta to-luxury-black"></div>
                                     <div class="absolute inset-[1px] rounded-full bg-luxury-black overflow-hidden">
-                                        <img src="/images/testimonials/12.jpg" alt="Jason B." class="w-full h-full object-cover" style="object-position: 50% 30%; transform: scale(1.1);">
+                                        <img src="/images/testimonials/12.jpg" alt="Jason B." class="w-full h-full object-cover object-center">
                                     </div>
                                 </div>
                                 <div>
