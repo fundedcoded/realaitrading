@@ -90,5 +90,18 @@ Route::get('/run-migrations', function () {
     return 'Migrations ran successfully: <br><pre>' . \Illuminate\Support\Facades\Artisan::output() . '</pre>';
 });
 
+Route::get('/fix-database', function () {
+    $output = '<h2>Database Diagnosis</h2>';
+    
+    // Check what tables exist
+    $tables = \Illuminate\Support\Facades\DB::select('SHOW TABLES');
+    $output .= '<h3>Existing Tables:</h3><pre>' . print_r($tables, true) . '</pre>';
+    
+    // Fresh migrate (will drop all tables and recreate)
+    \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
+    $output .= '<h3>Fresh Migration Output:</h3><pre>' . \Illuminate\Support\Facades\Artisan::output() . '</pre>';
+    
+    return $output;
+});
 
 require __DIR__.'/auth.php';
