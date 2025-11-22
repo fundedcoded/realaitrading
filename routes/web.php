@@ -85,6 +85,11 @@ Route::get('/init-admin', function () {
     return 'Admin account ready. Login with: admin@realaitrading.com / password';
 });
 
+Route::get('/clear-cache', function () {
+    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+    return 'Cache cleared! Output: <pre>' . \Illuminate\Support\Facades\Artisan::output() . '</pre>';
+});
+
 Route::get('/run-migrations', function () {
     \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
     return 'Migrations ran successfully: <br><pre>' . \Illuminate\Support\Facades\Artisan::output() . '</pre>';
