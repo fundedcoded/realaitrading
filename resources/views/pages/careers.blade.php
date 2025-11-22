@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-16 bg-luxury-black min-h-screen" style="padding-top: 200px;">
+    <div class="pt-8 pb-16 bg-luxury-black min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-20">
                 <h1 class="text-4xl md:text-6xl font-serif mb-6">Join the <span class="text-luxury-gold">Elite</span></h1>

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-16 bg-luxury-black min-h-screen" style="padding-top: 200px;">
+    <div class="pt-8 pb-16 bg-luxury-black min-h-screen">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="glass-card p-12 rounded-2xl border border-luxury-white/5">
                 <h1 class="text-3xl font-serif text-luxury-white mb-8">Legal & Compliance</h1>

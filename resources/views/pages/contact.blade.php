@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-16 bg-luxury-black min-h-screen flex items-center" style="padding-top: 200px;">
+    <div class="pt-8 pb-16 bg-luxury-black min-h-screen flex items-center">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
             <div class="glass-card p-12 rounded-2xl border border-luxury-white/5 relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-64 h-64 bg-luxury-gold/5 rounded-full blur-3xl -ml-20 -mt-20"></div>
