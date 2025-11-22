@@ -122,6 +122,22 @@ Route::get('/read-logs', function () {
     return '<pre>' . htmlspecialchars($content) . '</pre>';
 });
 
+Route::get('/test-extensions', function () {
+    $extensions = get_loaded_extensions();
+    sort($extensions);
+    
+    $output = '<h2>Installed Extensions</h2><ul>';
+    foreach ($extensions as $ext) {
+        $output .= "<li>$ext</li>";
+    }
+    $output .= '</ul>';
+    
+    $output .= '<h3>Intl Check:</h3>';
+    $output .= extension_loaded('intl') ? '✅ Intl is loaded' : '❌ Intl is MISSING';
+    
+    return $output;
+});
+
 Route::get('/run-migrations', function () {
     \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
     return 'Migrations ran successfully: <br><pre>' . \Illuminate\Support\Facades\Artisan::output() . '</pre>';
