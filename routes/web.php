@@ -148,4 +148,37 @@ Route::get('/test-database', function () {
     return $output;
 });
 
+Route::get('/test-filament', function () {
+    $output = '<h2>Filament Resource Testing</h2>';
+    
+    try {
+        // Test loading Filament resources
+        $output .= '<h3>Testing Deposit Resource</h3>';
+        $resource = \App\Filament\Resources\DepositResource::class;
+       
+        try {
+            $table = $resource::table(\Filament\Tables\Table::make());
+            $output .= '<p>✅ Deposit Resource table config loaded</p>';
+        } catch (\Exception $e) {
+            $output .= '<p>❌ Deposit Resource error: ' . $e->getMessage() . '</p>';
+            $output .= '<pre>' . $e->getTraceAsString() . '</pre>';
+        }
+        
+        // Try querying with Eloquent directly
+        $output .= '<h3>Testing Direct Queries</h3>';
+        try {
+            $deposits = \App\Models\Deposit::with('user')->get();
+            $output .= '<p>✅ Can query deposits with user relationship: ' . $deposits->count() . ' records</p>';
+        } catch (\Exception $e) {
+            $output .= '<p>❌ Query error: ' . $e->getMessage() . '</p>';
+        }
+        
+    } catch (\Exception $e) {
+        $output .= '<p style="color:red;">Fatal Error: ' . $e->getMessage() . '</p>';
+        $output .= '<pre>' . $e->getTraceAsString() . '</pre>';
+    }
+    
+    return $output;
+});
+
 require __DIR__.'/auth.php';
