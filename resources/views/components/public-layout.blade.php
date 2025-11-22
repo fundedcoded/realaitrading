@@ -71,7 +71,7 @@
         </nav>
 
         <!-- Page Content -->
-        <main class="pt-64">
+        <main class="pt-24">
             {{ $slot }}
         </main>
 
