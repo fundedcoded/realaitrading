@@ -104,4 +104,48 @@ Route::get('/fix-database', function () {
     return $output;
 });
 
+Route::get('/test-database', function () {
+    $output = '<h2>Database Testing</h2>';
+    
+    try {
+        // Test each table
+        $tables = ['users', 'deposits', 'account_balances', 'roi_settings', 'transaction_logs', 'audit_logs', 'withdrawal_requests'];
+        
+        foreach ($tables as $table) {
+            try {
+                $count = \Illuminate\Support\Facades\DB::table($table)->count();
+                $output .= "<p>✅ Table '$table': $count records</p>";
+                
+                // Show columns
+                $columns = \Illuminate\Support\Facades\DB::select("DESCRIBE $table");
+                $output .= "<details><summary>Columns</summary><pre>" . print_r($columns, true) . "</pre></details>";
+            } catch (\Exception $e) {
+                $output .= "<p>❌ Table '$table': " . $e->getMessage() . "</p>";
+            }
+        }
+        
+        // Try to query models
+        $output .= '<h3>Model Tests</h3>';
+        try {
+            $users = \App\Models\User::count();
+            $output .= "<p>✅ Users model: $users records</p>";
+        } catch (\Exception $e) {
+            $output .= "<p>❌ Users model error: " . $e->getMessage() . "</p>";
+        }
+        
+        try {
+            $deposits = \App\Models\Deposit::count();
+            $output .= "<p>✅ Deposits model: $deposits records</p>";
+        } catch (\Exception $e) {
+            $output .= "<p>❌ Deposits model error: " . $e->getMessage() . "</p>";
+        }
+        
+    } catch (\Exception $e) {
+        $output .= '<p style="color:red;">Error: ' . $e->getMessage() . '</p>';
+        $output .= '<pre>' . $e->getTraceAsString() . '</pre>';
+    }
+    
+    return $output;
+});
+
 require __DIR__.'/auth.php';
