@@ -149,36 +149,32 @@ Route::get('/test-database', function () {
 });
 
 Route::get('/test-filament', function () {
-    $output = '<h2>Filament Resource Testing</h2>';
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     
     try {
+        echo '<h2>Filament Resource Testing</h2>';
+        
         // Test loading Filament resources
-        $output .= '<h3>Testing Deposit Resource</h3>';
+        echo '<h3>Testing Deposit Resource</h3>';
         $resource = \App\Filament\Resources\DepositResource::class;
        
-        try {
-            $table = $resource::table(\Filament\Tables\Table::make());
-            $output .= '<p>✅ Deposit Resource table config loaded</p>';
-        } catch (\Exception $e) {
-            $output .= '<p>❌ Deposit Resource error: ' . $e->getMessage() . '</p>';
-            $output .= '<pre>' . $e->getTraceAsString() . '</pre>';
-        }
+        $table = $resource::table(\Filament\Tables\Table::make());
+        echo '<p>✅ Deposit Resource table config loaded</p>';
         
         // Try querying with Eloquent directly
-        $output .= '<h3>Testing Direct Queries</h3>';
-        try {
-            $deposits = \App\Models\Deposit::with('user')->get();
-            $output .= '<p>✅ Can query deposits with user relationship: ' . $deposits->count() . ' records</p>';
-        } catch (\Exception $e) {
-            $output .= '<p>❌ Query error: ' . $e->getMessage() . '</p>';
-        }
+        echo '<h3>Testing Direct Queries</h3>';
+        $deposits = \App\Models\Deposit::with('user')->get();
+        echo '<p>✅ Can query deposits with user relationship: ' . $deposits->count() . ' records</p>';
         
-    } catch (\Exception $e) {
-        $output .= '<p style="color:red;">Fatal Error: ' . $e->getMessage() . '</p>';
-        $output .= '<pre>' . $e->getTraceAsString() . '</pre>';
+    } catch (\Throwable $e) {
+        echo '<h2 style="color:red;">ERROR:</h2>';
+        echo '<p><strong>Message:</strong> ' . htmlspecialchars($e->getMessage()) . '</p>';
+        echo '<p><strong>File:</strong> ' . $e->getFile() . ':' . $e->getLine() . '</p>';
+        echo '<pre>' . htmlspecialchars($e->getTraceAsString()) . '</pre>';
     }
-    
-    return $output;
 });
+
 
 require __DIR__.'/auth.php';
