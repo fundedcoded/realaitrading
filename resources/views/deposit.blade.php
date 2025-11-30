@@ -41,18 +41,17 @@
                     </div>
                     
                     <div class="bg-black/40 rounded-xl p-6 border border-luxury-white/10 flex flex-col md:flex-row items-center gap-6">
-                        <!-- QR Code Placeholder -->
+                        <!-- QR Code -->
                         <div class="w-32 h-32 bg-white p-2 rounded-lg flex-shrink-0">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=bc1qxygjfg47are2su0l7kxmx28tqw62tugtn4jrdh" alt="BTC QR Code" class="w-full h-full">
+                            <img src="/images/btc-qr-code.jpg" alt="BTC QR Code" class="w-full h-full">
                         </div>
                         
                         <div class="flex-grow w-full">
                             <label class="text-xs text-luxury-white/40 uppercase tracking-widest mb-2 block">BTC Wallet Address</label>
-                            <div class="relative group">
-                                <input type="text" readonly value="bc1qxygjfg47are2su0l7kxmx28tqw62tugtn4jrdh" 
-                                       class="w-full bg-luxury-black border border-luxury-white/10 rounded-lg py-3 px-4 text-luxury-gold font-mono text-sm focus:outline-none focus:border-luxury-gold/50 transition-colors"
-                                       id="btc-wallet">
-                                <button onclick="copyToClipboard()" class="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-luxury-white/40 hover:text-luxury-gold transition-colors" title="Copy Address">
+                            <div class="relative group bg-luxury-black border border-luxury-white/10 rounded-lg p-3 flex items-center justify-between gap-3">
+                                <div class="font-mono text-sm text-luxury-gold break-all" id="btc-wallet-text">bc1qxygjfg47are2su0l7kxmx28tqw62tugtn4jrdh</div>
+                                <input type="hidden" value="bc1qxygjfg47are2su0l7kxmx28tqw62tugtn4jrdh" id="btc-wallet">
+                                <button onclick="copyToClipboard()" class="flex-shrink-0 p-2 text-luxury-white/40 hover:text-luxury-gold transition-colors bg-luxury-white/5 rounded-md" title="Copy Address">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                                 </button>
                                 <div id="copy-feedback" class="absolute -top-8 right-0 bg-luxury-gold text-luxury-black text-xs font-bold px-2 py-1 rounded opacity-0 transition-opacity">Copied!</div>
