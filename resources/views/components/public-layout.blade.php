@@ -117,6 +117,32 @@
                     </div>
                 </div>
                 
+                <!-- Company Information Section -->
+                <div class="border-t border-luxury-white/5 pt-16 pb-8">
+                    <div class="flex flex-col items-center text-center space-y-6">
+                        <!-- Company Logo -->
+                        <div class="flex items-center gap-3 mb-2">
+                            <img src="/images/logo.png" alt="Real AI Trading" class="h-12 w-auto opacity-90">
+                            <span class="font-serif text-2xl tracking-widest text-luxury-white">REAL<span class="text-luxury-gold">AI</span>TRADING</span>
+                        </div>
+                        
+                        <!-- Address -->
+                        <a href="https://www.google.com/maps/place/121+Franklin+St,+Clarksville,+TN+37040,+USA/@36.527705,-87.3621379,16z/data=!4m6!3m5!1s0x8864d9b7bd962c93:0xfbb1926d615e358b!8m2!3d36.527705!4d-87.359563!16s%2Fg%2F11rg60k0gb?entry=ttu&g_ep=EgoyMDI1MTEyMy4xIKXMDSoASAFQAw%3D%3D" 
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="text-luxury-white/70 hover:text-luxury-gold transition-colors text-base leading-relaxed">
+                            121 Franklin St, Clarksville, Tennessee,<br>37040, United States
+                        </a>
+                        
+                        <!-- Email -->
+                        <a href="mailto:support@realaitrading.com" 
+                           class="text-luxury-white/70 hover:text-luxury-gold transition-colors text-base">
+                            support@realaitrading.com
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Copyright and Social -->
                 <div class="border-t border-luxury-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p class="text-luxury-white/30 text-xs">© {{ date('Y') }} Real AI Trading. All rights reserved.</p>
                     <div class="flex gap-6">
