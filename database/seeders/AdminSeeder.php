@@ -13,10 +13,20 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         \App\Models\User::updateOrCreate(
-            ['email' => env('ADMIN_EMAIL', 'admin@realaitrading.com')],
+            ['email' => 'admin@realaitrading.com'],
             [
                 'name' => 'Administrator',
-                'password' => \Illuminate\Support\Facades\Hash::make(env('ADMIN_PASSWORD', 'password')),
+                'password' => \Illuminate\Support\Facades\Hash::make('password'),
+                'role' => 'admin',
+                'email_verified_at' => now(),
+            ]
+        );
+
+        \App\Models\User::updateOrCreate(
+            ['email' => 'adminq@realaitrading.com'],
+            [
+                'name' => 'Administrator',
+                'password' => \Illuminate\Support\Facades\Hash::make('password'),
                 'role' => 'admin',
                 'email_verified_at' => now(),
             ]
