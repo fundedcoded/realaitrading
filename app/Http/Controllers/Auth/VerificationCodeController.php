@@ -81,10 +81,7 @@ class VerificationCodeController extends Controller
 
         $code = EmailVerificationCode::generateFor($user->email);
 
-        Mail::to($user->email)->send(new VerificationCodeMail(
-            code: $code->code,
-            userName: $user->name,
-        ));
+        \App\Services\ResendMailService::sendVerificationCode($user->email, $code->code, $user->name);
 
         return back()->with('status', 'A new verification code has been sent to your email.');
     }

@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Mail\VerificationCodeMail;
 use App\Models\EmailVerificationCode;
 use App\Models\User;
+use App\Services\ResendMailService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -27,8 +26,6 @@ class RegisteredUserController extends Controller
 
     /**
      * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
@@ -48,13 +45,11 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        // Generate and send verification code
+        // Generate verification code
         $code = EmailVerificationCode::generateFor($user->email);
 
-        Mail::to($user->email)->send(new VerificationCodeMail(
-            code: $code->code,
-            userName: $user->name,
-        ));
+        // Send via Resend HTTP API (non-blocking, won't timeout)
+        ResendMailService::sendVerificationCode($user->email, $code->code, $user->name);
 
         return redirect()->route('verify-code');
     }
