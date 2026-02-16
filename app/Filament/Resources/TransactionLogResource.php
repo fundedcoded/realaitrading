@@ -17,7 +17,13 @@ class TransactionLogResource extends Resource
 {
     protected static ?string $model = TransactionLog::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+
+    protected static ?string $navigationGroup = 'Finance';
+
+    protected static ?int $navigationSort = 5;
+
+    protected static ?string $navigationLabel = 'Transactions';
 
     public static function form(Form $form): Form
     {

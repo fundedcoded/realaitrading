@@ -57,9 +57,9 @@ Route::get('/deposit', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'account.setup'])->name('dashboard');
+})->middleware(['auth', 'account.setup', \App\Http\Middleware\CheckUserActive::class])->name('dashboard');
 
-Route::middleware(['auth', 'account.setup'])->group(function () {
+Route::middleware(['auth', 'account.setup', \App\Http\Middleware\CheckUserActive::class])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -17,7 +17,13 @@ class RoiSettingResource extends Resource
 {
     protected static ?string $model = RoiSetting::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
+
+    protected static ?string $navigationGroup = 'System';
+
+    protected static ?int $navigationSort = 6;
+
+    protected static ?string $navigationLabel = 'ROI Settings';
 
     public static function form(Form $form): Form
     {

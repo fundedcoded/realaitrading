@@ -34,6 +34,12 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
+        // Record login activity
+        $user->update([
+            'last_login_at' => now(),
+            'last_login_ip' => $request->ip(),
+        ]);
+
         // Check if email is verified
         if (!$user->email_verified_at) {
             // Send a new verification code

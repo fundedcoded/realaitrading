@@ -17,7 +17,13 @@ class AuditLogResource extends Resource
 {
     protected static ?string $model = AuditLog::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shield-check';
+
+    protected static ?string $navigationGroup = 'System';
+
+    protected static ?int $navigationSort = 7;
+
+    protected static ?string $navigationLabel = 'Audit Logs';
 
     public static function form(Form $form): Form
     {

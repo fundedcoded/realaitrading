@@ -24,15 +24,28 @@
         <!-- 6-Digit Code Input -->
         <div class="mb-8 animate-in animate-in-delay-1">
             <label class="auth-label text-center block mb-4">Enter Verification Code</label>
-            <div class="flex justify-center gap-3" id="code-inputs">
-                <input type="text" maxlength="1" class="w-12 h-14 text-center text-xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="0" inputmode="numeric" autofocus />
-                <input type="text" maxlength="1" class="w-12 h-14 text-center text-xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="1" inputmode="numeric" />
-                <input type="text" maxlength="1" class="w-12 h-14 text-center text-xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="2" inputmode="numeric" />
-                <input type="text" maxlength="1" class="w-12 h-14 text-center text-xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="3" inputmode="numeric" />
-                <input type="text" maxlength="1" class="w-12 h-14 text-center text-xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="4" inputmode="numeric" />
-                <input type="text" maxlength="1" class="w-12 h-14 text-center text-xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="5" inputmode="numeric" />
+            <div class="otp-wrapper" id="code-wrapper">
+                <input
+                    type="text"
+                    name="code"
+                    id="code-input"
+                    maxlength="6"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    pattern="[0-9]*"
+                    autofocus
+                    class="otp-real-input"
+                    placeholder=" "
+                />
+                <div class="otp-display" id="code-display" aria-hidden="true">
+                    <div class="otp-box" data-i="0"></div>
+                    <div class="otp-box" data-i="1"></div>
+                    <div class="otp-box" data-i="2"></div>
+                    <div class="otp-box" data-i="3"></div>
+                    <div class="otp-box" data-i="4"></div>
+                    <div class="otp-box" data-i="5"></div>
+                </div>
             </div>
-            <input type="hidden" name="code" id="code-hidden" />
             @error('code')
                 <p class="mt-3 text-sm text-red-400 text-center">{{ $message }}</p>
             @enderror
@@ -64,67 +77,82 @@
         </p>
     </div>
 
+    <style>
+        .otp-wrapper { position: relative; }
+        .otp-real-input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: 10;
+            font-size: 18px;
+            caret-color: transparent;
+            cursor: pointer;
+        }
+        .otp-display {
+            display: flex;
+            justify-content: center;
+            gap: 0.65rem;
+            pointer-events: none;
+        }
+        .otp-box {
+            width: 3rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            font-family: 'DM Serif Display', Georgia, serif;
+            color: #f5f5f5;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 0.75rem;
+            transition: all 0.15s ease;
+        }
+        .otp-box.filled {
+            border-color: rgba(212,175,55,0.3);
+            background: rgba(212,175,55,0.04);
+        }
+        .otp-box.active {
+            border-color: rgba(212,175,55,0.5);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.08);
+        }
+        @media (max-width: 400px) {
+            .otp-display { gap: 0.4rem; }
+            .otp-box { width: 2.6rem; height: 3rem; font-size: 1.15rem; }
+        }
+    </style>
+
     <script>
-        // Auto-advance digit inputs
         document.addEventListener('DOMContentLoaded', function() {
-            const inputs = document.querySelectorAll('#code-inputs input');
-            const hiddenInput = document.getElementById('code-hidden');
+            const input = document.getElementById('code-input');
+            const boxes = document.querySelectorAll('#code-display .otp-box');
             const form = document.getElementById('verify-form');
 
-            function updateHidden() {
-                let code = '';
-                inputs.forEach(input => code += input.value);
-                hiddenInput.value = code;
+            function render() {
+                const val = input.value.replace(/[^0-9]/g, '');
+                if (val !== input.value) input.value = val;
+                boxes.forEach((box, i) => {
+                    box.textContent = val[i] || '';
+                    box.classList.toggle('filled', !!val[i]);
+                    box.classList.toggle('active', i === val.length && document.activeElement === input);
+                });
+                if (val.length === 6) {
+                    setTimeout(() => form.submit(), 150);
+                }
             }
 
-            inputs.forEach((input, index) => {
-                input.addEventListener('input', function(e) {
-                    // Only allow digits
-                    this.value = this.value.replace(/[^0-9]/g, '');
-                    
-                    if (this.value && index < inputs.length - 1) {
-                        inputs[index + 1].focus();
-                    }
-                    updateHidden();
-
-                    // Auto-submit when all filled
-                    if (index === inputs.length - 1 && this.value) {
-                        updateHidden();
-                        if (hiddenInput.value.length === 6) {
-                            form.submit();
-                        }
-                    }
-                });
-
-                input.addEventListener('keydown', function(e) {
-                    if (e.key === 'Backspace' && !this.value && index > 0) {
-                        inputs[index - 1].focus();
-                        inputs[index - 1].value = '';
-                        updateHidden();
-                    }
-                });
-
-                // Handle paste
-                input.addEventListener('paste', function(e) {
-                    e.preventDefault();
-                    const pastedData = e.clipboardData.getData('text').replace(/[^0-9]/g, '');
-                    for (let i = 0; i < Math.min(pastedData.length, inputs.length); i++) {
-                        inputs[i].value = pastedData[i];
-                    }
-                    if (pastedData.length >= inputs.length) {
-                        inputs[inputs.length - 1].focus();
-                    } else {
-                        inputs[Math.min(pastedData.length, inputs.length - 1)].focus();
-                    }
-                    updateHidden();
-                    if (pastedData.length === 6) {
-                        form.submit();
-                    }
-                });
+            input.addEventListener('input', render);
+            input.addEventListener('focus', render);
+            input.addEventListener('blur', () => {
+                boxes.forEach(b => b.classList.remove('active'));
             });
+            input.addEventListener('click', render);
+            render();
 
             // Timer
-            let timeLeft = 600; // 10 minutes
+            let timeLeft = 600;
             const timerEl = document.getElementById('timer');
             const countdown = setInterval(() => {
                 timeLeft--;

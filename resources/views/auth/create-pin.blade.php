@@ -16,13 +16,25 @@
         <!-- PIN Input -->
         <div class="mb-6 animate-in animate-in-delay-1">
             <label class="auth-label text-center block mb-4">Enter 4-Digit PIN</label>
-            <div class="flex justify-center gap-4" id="pin-inputs">
-                <input type="password" maxlength="1" class="w-14 h-16 text-center text-2xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="0" inputmode="numeric" autofocus />
-                <input type="password" maxlength="1" class="w-14 h-16 text-center text-2xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="1" inputmode="numeric" />
-                <input type="password" maxlength="1" class="w-14 h-16 text-center text-2xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="2" inputmode="numeric" />
-                <input type="password" maxlength="1" class="w-14 h-16 text-center text-2xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="3" inputmode="numeric" />
+            <div class="otp-wrapper" id="pin-wrapper">
+                <input
+                    type="password"
+                    name="pin"
+                    id="pin-input"
+                    maxlength="4"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    autofocus
+                    class="otp-real-input"
+                    placeholder=" "
+                />
+                <div class="otp-display" id="pin-display" aria-hidden="true">
+                    <div class="otp-box otp-box-lg" data-i="0"></div>
+                    <div class="otp-box otp-box-lg" data-i="1"></div>
+                    <div class="otp-box otp-box-lg" data-i="2"></div>
+                    <div class="otp-box otp-box-lg" data-i="3"></div>
+                </div>
             </div>
-            <input type="hidden" name="pin" id="pin-hidden" />
             @error('pin')
                 <p class="mt-3 text-sm text-red-400 text-center">{{ $message }}</p>
             @enderror
@@ -31,13 +43,24 @@
         <!-- Confirm PIN -->
         <div class="mb-8 animate-in animate-in-delay-2">
             <label class="auth-label text-center block mb-4">Confirm PIN</label>
-            <div class="flex justify-center gap-4" id="pin-confirm-inputs">
-                <input type="password" maxlength="1" class="w-14 h-16 text-center text-2xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="0" inputmode="numeric" />
-                <input type="password" maxlength="1" class="w-14 h-16 text-center text-2xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="1" inputmode="numeric" />
-                <input type="password" maxlength="1" class="w-14 h-16 text-center text-2xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="2" inputmode="numeric" />
-                <input type="password" maxlength="1" class="w-14 h-16 text-center text-2xl font-serif bg-luxury-white/[0.03] border border-luxury-white/[0.08] rounded-xl text-luxury-white focus:border-luxury-gold/40 focus:bg-luxury-gold/[0.03] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] outline-none transition-all" data-index="3" inputmode="numeric" />
+            <div class="otp-wrapper" id="pin-confirm-wrapper">
+                <input
+                    type="password"
+                    name="pin_confirmation"
+                    id="pin-confirm-input"
+                    maxlength="4"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    class="otp-real-input"
+                    placeholder=" "
+                />
+                <div class="otp-display" id="pin-confirm-display" aria-hidden="true">
+                    <div class="otp-box otp-box-lg" data-i="0"></div>
+                    <div class="otp-box otp-box-lg" data-i="1"></div>
+                    <div class="otp-box otp-box-lg" data-i="2"></div>
+                    <div class="otp-box otp-box-lg" data-i="3"></div>
+                </div>
             </div>
-            <input type="hidden" name="pin_confirmation" id="pin-confirm-hidden" />
             @error('pin_confirmation')
                 <p class="mt-3 text-sm text-red-400 text-center">{{ $message }}</p>
             @enderror
@@ -58,68 +81,84 @@
         </div>
     </form>
 
+    <style>
+        .otp-wrapper { position: relative; }
+        .otp-real-input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: 10;
+            font-size: 18px;
+            caret-color: transparent;
+            cursor: pointer;
+        }
+        .otp-display {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            pointer-events: none;
+        }
+        .otp-box-lg {
+            width: 3.5rem;
+            height: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-family: 'DM Serif Display', Georgia, serif;
+            color: #f5f5f5;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 0.75rem;
+            transition: all 0.15s ease;
+        }
+        .otp-box-lg.filled {
+            border-color: rgba(212,175,55,0.3);
+            background: rgba(212,175,55,0.04);
+        }
+        .otp-box-lg.active {
+            border-color: rgba(212,175,55,0.5);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.08);
+        }
+    </style>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            function setupPinInputs(containerId, hiddenId) {
-                const inputs = document.querySelectorAll(`#${containerId} input`);
-                const hidden = document.getElementById(hiddenId);
+            function setupPinField(inputId, displayId, onComplete) {
+                const input = document.getElementById(inputId);
+                const boxes = document.querySelectorAll(`#${displayId} .otp-box-lg`);
 
-                function updateHidden() {
-                    let val = '';
-                    inputs.forEach(input => val += input.value);
-                    hidden.value = val;
+                function render() {
+                    const val = input.value.replace(/[^0-9]/g, '');
+                    if (val !== input.value) input.value = val;
+                    boxes.forEach((box, i) => {
+                        box.textContent = val[i] ? '●' : '';
+                        box.classList.toggle('filled', !!val[i]);
+                        box.classList.toggle('active', i === val.length && document.activeElement === input);
+                    });
+                    if (val.length === 4 && onComplete) {
+                        onComplete();
+                    }
                 }
 
-                inputs.forEach((input, index) => {
-                    input.addEventListener('input', function(e) {
-                        this.value = this.value.replace(/[^0-9]/g, '');
-                        if (this.value && index < inputs.length - 1) {
-                            inputs[index + 1].focus();
-                        }
-                        updateHidden();
-                    });
-
-                    input.addEventListener('keydown', function(e) {
-                        if (e.key === 'Backspace' && !this.value && index > 0) {
-                            inputs[index - 1].focus();
-                            inputs[index - 1].value = '';
-                            updateHidden();
-                        }
-                    });
-
-                    input.addEventListener('paste', function(e) {
-                        e.preventDefault();
-                        const pastedData = e.clipboardData.getData('text').replace(/[^0-9]/g, '');
-                        for (let i = 0; i < Math.min(pastedData.length, inputs.length); i++) {
-                            inputs[i].value = pastedData[i];
-                        }
-                        if (pastedData.length >= inputs.length) {
-                            inputs[inputs.length - 1].focus();
-                            // Auto-advance to confirm section
-                            if (containerId === 'pin-inputs') {
-                                setTimeout(() => {
-                                    document.querySelector('#pin-confirm-inputs input').focus();
-                                }, 100);
-                            }
-                        }
-                        updateHidden();
-                    });
-
-                    // When last digit of first PIN is entered, auto-focus confirm
-                    if (containerId === 'pin-inputs' && index === inputs.length - 1) {
-                        input.addEventListener('input', function() {
-                            if (this.value) {
-                                setTimeout(() => {
-                                    document.querySelector('#pin-confirm-inputs input').focus();
-                                }, 100);
-                            }
-                        });
-                    }
+                input.addEventListener('input', render);
+                input.addEventListener('focus', render);
+                input.addEventListener('blur', () => {
+                    boxes.forEach(b => b.classList.remove('active'));
                 });
+                input.addEventListener('click', render);
+                render();
             }
 
-            setupPinInputs('pin-inputs', 'pin-hidden');
-            setupPinInputs('pin-confirm-inputs', 'pin-confirm-hidden');
+            // PIN field — auto-focus to confirm when 4 digits entered
+            setupPinField('pin-input', 'pin-display', () => {
+                setTimeout(() => document.getElementById('pin-confirm-input').focus(), 100);
+            });
+
+            // Confirm field — no auto action, user clicks submit
+            setupPinField('pin-confirm-input', 'pin-confirm-display', null);
         });
     </script>
 </x-guest-layout>

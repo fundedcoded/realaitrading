@@ -17,7 +17,13 @@ class AccountBalanceResource extends Resource
 {
     protected static ?string $model = AccountBalance::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-wallet';
+
+    protected static ?string $navigationGroup = 'Finance';
+
+    protected static ?int $navigationSort = 4;
+
+    protected static ?string $navigationLabel = 'Balances';
 
     public static function form(Form $form): Form
     {
