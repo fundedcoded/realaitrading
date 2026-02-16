@@ -134,6 +134,23 @@ class WithdrawalRequestResource extends Resource
                             ->rows(2),
                     ])
                     ->action(function (WithdrawalRequest $record, array $data) {
+                        // Debit user balance
+                        $balanceService = app(\App\Services\BalanceService::class);
+                        try {
+                            $balanceService->debit($record->user, $record->amount, 'withdrawal', [
+                                'withdrawal_id' => $record->id,
+                                'btc_address' => $record->btc_address,
+                                'status' => 'approved',
+                            ]);
+                        } catch (\Exception $e) {
+                            Notification::make()
+                                ->title('Insufficient Balance')
+                                ->body("User does not have enough balance for this withdrawal.")
+                                ->danger()
+                                ->send();
+                            return;
+                        }
+
                         $record->update([
                             'status' => 'approved',
                             'admin_notes' => $data['admin_notes'] ?? $record->admin_notes,
@@ -167,6 +184,20 @@ class WithdrawalRequestResource extends Resource
                             'admin_notes' => $data['admin_notes'],
                             'processed_at' => now(),
                         ]);
+
+                        // Log the rejection so it shows in user's activity
+                        \App\Models\TransactionLog::create([
+                            'user_id' => $record->user_id,
+                            'type' => 'withdrawal_rejected',
+                            'amount' => 0,
+                            'balance_after' => $record->user->accountBalance->current_balance ?? 0,
+                            'meta' => [
+                                'withdrawal_id' => $record->id,
+                                'original_amount' => $record->amount,
+                                'reason' => $data['admin_notes'],
+                            ],
+                        ]);
+
                         Notification::make()
                             ->title('Withdrawal Rejected')
                             ->body("$" . number_format($record->amount, 2) . " withdrawal rejected for {$record->user->name}")

@@ -93,10 +93,87 @@ class DepositResource extends Resource
                     ->dateTime()
                     ->sortable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'confirmed' => 'Confirmed',
+                        'rejected' => 'Rejected',
+                    ]),
             ])
             ->actions([
+                Tables\Actions\Action::make('confirm')
+                    ->label('Confirm')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->modalHeading('Confirm Deposit')
+                    ->modalDescription(fn (Deposit $record): string =>
+                        "Confirm deposit of $" . number_format($record->amount_usd, 2) . " for {$record->user->name}?")
+                    ->action(function (Deposit $record) {
+                        // Credit user balance
+                        $balanceService = app(\App\Services\BalanceService::class);
+                        $balanceService->credit($record->user, $record->amount_usd, 'deposit', [
+                            'deposit_id' => $record->id,
+                            'tx_hash' => $record->tx_hash,
+                            'amount_btc' => $record->amount_btc,
+                        ]);
+
+                        $record->update([
+                            'status' => 'confirmed',
+                            'confirmed_at' => now(),
+                        ]);
+
+                        \Filament\Notifications\Notification::make()
+                            ->title('Deposit Confirmed')
+                            ->body("$" . number_format($record->amount_usd, 2) . " credited to {$record->user->name}")
+                            ->success()
+                            ->send();
+                    })
+                    ->visible(fn (Deposit $record): bool => $record->status === 'pending'),
+
+                Tables\Actions\Action::make('reject')
+                    ->label('Reject')
+                    ->icon('heroicon-o-x-circle')
+                    ->color('danger')
+                    ->requiresConfirmation()
+                    ->modalHeading('Reject Deposit')
+                    ->modalDescription(fn (Deposit $record): string =>
+                        "Reject deposit of $" . number_format($record->amount_usd, 2) . " for {$record->user->name}?")
+                    ->form([
+                        Forms\Components\Textarea::make('notes')
+                            ->label('Reason for rejection')
+                            ->rows(2)
+                            ->required(),
+                    ])
+                    ->action(function (Deposit $record, array $data) {
+                        $record->update([
+                            'status' => 'rejected',
+                            'notes' => $data['notes'],
+                        ]);
+
+                        // Log rejection so it appears in user activity
+                        \App\Models\TransactionLog::create([
+                            'user_id' => $record->user_id,
+                            'type' => 'deposit_rejected',
+                            'amount' => 0,
+                            'balance_after' => $record->user->accountBalance->current_balance ?? 0,
+                            'meta' => [
+                                'deposit_id' => $record->id,
+                                'original_amount' => $record->amount_usd,
+                                'reason' => $data['notes'],
+                            ],
+                        ]);
+
+                        \Filament\Notifications\Notification::make()
+                            ->title('Deposit Rejected')
+                            ->body("Deposit rejected for {$record->user->name}")
+                            ->warning()
+                            ->send();
+                    })
+                    ->visible(fn (Deposit $record): bool => $record->status === 'pending'),
+
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

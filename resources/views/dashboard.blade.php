@@ -325,64 +325,102 @@
                         </div>
 
                         <div class="space-y-2.5">
-                            {{-- Pending Withdrawals --}}
-                            @foreach(Auth::user()->withdrawalRequests()->where('status', 'pending')->latest()->take(2)->get() as $withdrawal)
-                                <div class="activity-item flex items-center justify-between" style="background: rgba(234, 179, 8, 0.04); border-color: rgba(234, 179, 8, 0.1);">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-9 h-9 rounded-xl flex items-center justify-center bg-yellow-500/10 text-yellow-400">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                        </div>
-                                        <div>
-                                            <div class="text-sm text-luxury-white font-medium">Withdrawal</div>
-                                            <div class="text-[11px] text-luxury-white/30">{{ $withdrawal->created_at->diffForHumans() }}</div>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="text-sm font-mono text-yellow-400">-${{ number_format($withdrawal->amount, 2) }}</div>
-                                        <div class="text-[10px] text-yellow-400/60 uppercase tracking-wider">Pending</div>
-                                    </div>
-                                </div>
-                            @endforeach
+                            @php
+                                // Gather all activities into one unified feed
+                                $activities = collect();
 
-                            {{-- Transaction Logs --}}
-                            @forelse(Auth::user()->transactionLogs->sortByDesc('created_at')->take(4) as $log)
-                                <div class="activity-item flex items-center justify-between">
+                                // Pending withdrawals
+                                foreach(Auth::user()->withdrawalRequests()->whereIn('status', ['pending', 'approved', 'rejected'])->latest()->take(5)->get() as $w) {
+                                    $activities->push([
+                                        'type' => 'withdrawal_' . $w->status,
+                                        'amount' => $w->amount,
+                                        'date' => $w->updated_at ?? $w->created_at,
+                                        'created_at' => $w->created_at,
+                                    ]);
+                                }
+
+                                // Transaction logs (deposits, withdrawals completed, ROI, rejections)
+                                foreach(Auth::user()->transactionLogs->sortByDesc('created_at')->take(10) as $log) {
+                                    $activities->push([
+                                        'type' => $log->type,
+                                        'amount' => $log->amount,
+                                        'date' => $log->created_at,
+                                        'created_at' => $log->created_at,
+                                        'meta' => $log->meta,
+                                    ]);
+                                }
+
+                                // Sort by date descending, take 8 unique
+                                $activities = $activities->sortByDesc('created_at')->unique(function ($item) {
+                                    return $item['type'] . '_' . $item['created_at']->timestamp;
+                                })->take(8);
+                            @endphp
+
+                            @forelse($activities as $activity)
+                                @php
+                                    $typeConfig = match($activity['type']) {
+                                        'deposit' => ['icon' => 'M19 14l-7 7m0 0l-7-7m7 7V3', 'color' => 'green', 'label' => 'Deposit Confirmed', 'prefix' => '+'],
+                                        'deposit_rejected' => ['icon' => 'M6 18L18 6M6 6l12 12', 'color' => 'red', 'label' => 'Deposit Rejected', 'prefix' => ''],
+                                        'withdrawal' => ['icon' => 'M5 10l7-7m0 0l7 7m-7-7v18', 'color' => 'green', 'label' => 'Withdrawal Complete', 'prefix' => '-'],
+                                        'withdrawal_pending' => ['icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', 'color' => 'yellow', 'label' => 'Withdrawal Pending', 'prefix' => '-'],
+                                        'withdrawal_approved' => ['icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', 'color' => 'green', 'label' => 'Withdrawal Approved', 'prefix' => '-'],
+                                        'withdrawal_rejected' => ['icon' => 'M6 18L18 6M6 6l12 12', 'color' => 'red', 'label' => 'Withdrawal Rejected', 'prefix' => ''],
+                                        'roi_growth' => ['icon' => 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', 'color' => 'blue', 'label' => 'AI Return', 'prefix' => '+'],
+                                        default => ['icon' => 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'color' => 'gray', 'label' => ucfirst(str_replace('_', ' ', $activity['type'])), 'prefix' => ''],
+                                    };
+                                    $colorClasses = match($typeConfig['color']) {
+                                        'green' => 'bg-green-500/10 text-green-400',
+                                        'red' => 'bg-red-500/10 text-red-400',
+                                        'yellow' => 'bg-yellow-500/10 text-yellow-400',
+                                        'blue' => 'bg-luxury-blue/10 text-luxury-blue',
+                                        default => 'bg-luxury-white/10 text-luxury-white/40',
+                                    };
+                                    $amountColor = match($typeConfig['color']) {
+                                        'green' => 'text-green-400',
+                                        'red' => 'text-red-400',
+                                        'yellow' => 'text-yellow-400',
+                                        'blue' => 'text-luxury-blue',
+                                        default => 'text-luxury-white/60',
+                                    };
+                                    $displayAmount = abs($activity['amount']);
+                                    if ($activity['type'] === 'withdrawal_rejected' && isset($activity['meta']['original_amount'])) {
+                                        $displayAmount = $activity['meta']['original_amount'];
+                                    }
+                                    if ($activity['type'] === 'deposit_rejected' && isset($activity['meta']['original_amount'])) {
+                                        $displayAmount = $activity['meta']['original_amount'];
+                                    }
+                                @endphp
+                                <div class="activity-item flex items-center justify-between" style="background: rgba({{ $typeConfig['color'] === 'green' ? '34,197,94' : ($typeConfig['color'] === 'red' ? '239,68,68' : ($typeConfig['color'] === 'yellow' ? '234,179,8' : ($typeConfig['color'] === 'blue' ? '59,130,246' : '255,255,255'))) }}, 0.04); border-color: rgba({{ $typeConfig['color'] === 'green' ? '34,197,94' : ($typeConfig['color'] === 'red' ? '239,68,68' : ($typeConfig['color'] === 'yellow' ? '234,179,8' : ($typeConfig['color'] === 'blue' ? '59,130,246' : '255,255,255'))) }}, 0.1);">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-9 h-9 rounded-xl flex items-center justify-center
-                                            @if($log->transaction_type == 'deposit') bg-green-500/10 text-green-400
-                                            @elseif($log->transaction_type == 'roi_growth') bg-luxury-blue/10 text-luxury-blue
-                                            @else bg-red-500/10 text-red-400 @endif">
-                                            @if($log->transaction_type == 'deposit')
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                                            @elseif($log->transaction_type == 'roi_growth')
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                                            @else
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-                                            @endif
+                                        <div class="w-9 h-9 rounded-xl flex items-center justify-center {{ $colorClasses }}">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $typeConfig['icon'] }}"></path></svg>
                                         </div>
                                         <div>
-                                            <div class="text-sm text-luxury-white font-medium">
-                                                {{ str_replace('_', ' ', ucfirst($log->transaction_type)) }}
-                                            </div>
-                                            <div class="text-[11px] text-luxury-white/30">{{ $log->created_at->diffForHumans() }}</div>
+                                            <div class="text-sm text-luxury-white font-medium">{{ $typeConfig['label'] }}</div>
+                                            <div class="text-[11px] text-luxury-white/30">{{ $activity['date']->diffForHumans() }}</div>
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <div class="text-sm font-mono {{ $log->amount >= 0 ? 'text-green-400' : 'text-red-400' }}">
-                                            {{ $log->amount >= 0 ? '+' : '' }}${{ number_format($log->amount, 2) }}
-                                        </div>
+                                        @if($displayAmount > 0)
+                                            <div class="text-sm font-mono {{ $amountColor }}">
+                                                {{ $typeConfig['prefix'] }}${{ number_format($displayAmount, 2) }}
+                                            </div>
+                                        @endif
+                                        @if(str_contains($activity['type'], 'rejected'))
+                                            <div class="text-[10px] text-red-400/60 uppercase tracking-wider">Rejected</div>
+                                        @elseif($activity['type'] === 'withdrawal_pending')
+                                            <div class="text-[10px] text-yellow-400/60 uppercase tracking-wider">Pending</div>
+                                        @endif
                                     </div>
                                 </div>
                             @empty
-                                @if(Auth::user()->withdrawalRequests()->where('status', 'pending')->count() == 0)
-                                    <div class="text-center py-10">
-                                        <div class="w-14 h-14 mx-auto rounded-2xl bg-luxury-white/5 flex items-center justify-center mb-3">
-                                            <svg class="w-6 h-6 text-luxury-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                                        </div>
-                                        <p class="text-sm text-luxury-white/30">No activity yet</p>
-                                        <p class="text-[11px] text-luxury-white/20 mt-1">Deposit to get started</p>
+                                <div class="text-center py-10">
+                                    <div class="w-14 h-14 mx-auto rounded-2xl bg-luxury-white/5 flex items-center justify-center mb-3">
+                                        <svg class="w-6 h-6 text-luxury-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                                     </div>
-                                @endif
+                                    <p class="text-sm text-luxury-white/30">No activity yet</p>
+                                    <p class="text-[11px] text-luxury-white/20 mt-1">Deposit to get started</p>
+                                </div>
                             @endforelse
                         </div>
                     </div>
