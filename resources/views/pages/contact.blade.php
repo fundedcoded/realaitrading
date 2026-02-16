@@ -7,7 +7,7 @@
 
     <div class="pt-8 pb-16 bg-luxury-black min-h-screen flex items-center">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
-            <div class="glass-card p-12 rounded-2xl border border-luxury-white/5 relative overflow-hidden">
+            <div class="glow-card glass-card p-12 rounded-2xl border border-luxury-white/5 relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-64 h-64 bg-luxury-gold/5 rounded-full blur-3xl -ml-20 -mt-20"></div>
                 
                 <h1 class="text-4xl font-serif text-luxury-white mb-6">Get in <span class="text-luxury-gold">Touch</span></h1>

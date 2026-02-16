@@ -8,8 +8,12 @@
     <div class="pt-8 pb-16 bg-luxury-black min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Hero -->
-            <div class="text-center mb-20">
-                <h1 class="text-4xl md:text-6xl font-serif mb-6">The <span class="text-luxury-gold">Sovereign</span> Standard</h1>
+            <div class="text-center mb-20 scroll-reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-luxury-gold/5 border border-luxury-gold/15 mb-6">
+                    <span class="w-1.5 h-1.5 rounded-full bg-luxury-gold animate-pulse"></span>
+                    <span class="text-luxury-gold text-[10px] font-bold tracking-[0.2em] uppercase">Our Story</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-serif mb-6">The <span class="text-luxury-gold text-shadow-gold">Sovereign</span> Standard</h1>
                 <p class="text-xl text-luxury-white/60 max-w-3xl mx-auto">
                     We are building the future of autonomous wealth generation.
                 </p>
@@ -17,7 +21,7 @@
 
             <!-- Mission -->
             <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
-                <div>
+                <div class="scroll-reveal">
                     <span class="text-luxury-gold text-xs font-bold tracking-[0.2em] uppercase mb-4 block">Our Mission</span>
                     <h2 class="text-3xl md:text-4xl font-serif mb-6 text-luxury-white">Democratizing Institutional Alpha</h2>
                     <p class="text-luxury-white/60 leading-relaxed mb-6">
@@ -29,7 +33,7 @@
                 </div>
                 <div class="relative">
                     <div class="absolute -inset-4 bg-luxury-gold/20 blur-3xl rounded-full opacity-20"></div>
-                    <div class="glass-card p-8 rounded-2xl border border-luxury-white/10 relative overflow-hidden">
+                    <div class="glow-card glass-card p-8 rounded-2xl border border-luxury-white/10 relative overflow-hidden">
                         <div class="grid grid-cols-2 gap-8 text-center">
                             <div>
                                 <div class="text-4xl font-serif text-luxury-white mb-2">$50M+</div>

@@ -7,7 +7,7 @@
 
     <div class="pt-8 pb-16 bg-luxury-black min-h-screen flex items-center">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="glass-card p-12 rounded-2xl border border-luxury-white/5 relative overflow-hidden">
+            <div class="glow-card glass-card p-12 rounded-2xl border border-luxury-white/5 relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-luxury-blue/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
                 
                 <span class="text-luxury-gold text-xs font-bold tracking-[0.2em] uppercase mb-4 block">Developers & Institutions</span>

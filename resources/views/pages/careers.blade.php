@@ -7,8 +7,12 @@
 
     <div class="pt-8 pb-16 bg-luxury-black min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-20">
-                <h1 class="text-4xl md:text-6xl font-serif mb-6">Join the <span class="text-luxury-gold">Elite</span></h1>
+            <div class="text-center mb-20 scroll-reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-luxury-gold/5 border border-luxury-gold/15 mb-6">
+                    <span class="w-1.5 h-1.5 rounded-full bg-luxury-gold animate-pulse"></span>
+                    <span class="text-luxury-gold text-[10px] font-bold tracking-[0.2em] uppercase">Hiring Now</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-serif mb-6">Join the <span class="text-luxury-gold text-shadow-gold">Elite</span></h1>
                 <p class="text-xl text-luxury-white/60 max-w-3xl mx-auto">
                     We are always looking for exceptional talent in quantitative finance, machine learning, and blockchain engineering.
                 </p>

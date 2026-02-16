@@ -8,17 +8,21 @@
     <div class="pt-8 pb-16 bg-luxury-black min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Hero -->
-            <div class="text-center mb-20">
-                <h1 class="text-4xl md:text-6xl font-serif mb-6">Global <span class="text-luxury-gold">Markets</span> Access</h1>
+            <div class="text-center mb-20 scroll-reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-luxury-gold/5 border border-luxury-gold/15 mb-6">
+                    <span class="w-1.5 h-1.5 rounded-full bg-luxury-gold animate-pulse"></span>
+                    <span class="text-luxury-gold text-[10px] font-bold tracking-[0.2em] uppercase">Global Access</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-serif mb-6">Global <span class="text-luxury-gold text-shadow-gold">Markets</span> Access</h1>
                 <p class="text-xl text-luxury-white/60 max-w-3xl mx-auto">
                     Trade the world's most liquid assets with institutional-grade execution.
                 </p>
             </div>
 
             <!-- Asset Classes Grid -->
-            <div class="grid md:grid-cols-3 gap-8 mb-20">
+            <div class="grid md:grid-cols-3 gap-8 mb-20 stagger-grid">
                 <!-- Crypto -->
-                <div class="glass-card p-8 rounded-xl border border-luxury-white/5 hover:border-luxury-gold/30 transition-colors group">
+                <div class="glow-card glass-card p-8 rounded-xl border border-luxury-white/5 group">
                     <div class="w-12 h-12 rounded-full bg-luxury-blue/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-luxury-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
@@ -34,7 +38,7 @@
                 </div>
 
                 <!-- Forex -->
-                <div class="glass-card p-8 rounded-xl border border-luxury-white/5 hover:border-luxury-gold/30 transition-colors group">
+                <div class="glow-card glass-card p-8 rounded-xl border border-luxury-white/5 group">
                     <div class="w-12 h-12 rounded-full bg-luxury-gold/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-luxury-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
@@ -50,7 +54,7 @@
                 </div>
 
                 <!-- Commodities -->
-                <div class="glass-card p-8 rounded-xl border border-luxury-white/5 hover:border-luxury-gold/30 transition-colors group">
+                <div class="glow-card glass-card p-8 rounded-xl border border-luxury-white/5 group">
                     <div class="w-12 h-12 rounded-full bg-luxury-magenta/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-luxury-magenta" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
                     </div>
