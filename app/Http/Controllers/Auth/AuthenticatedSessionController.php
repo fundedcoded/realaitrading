@@ -98,6 +98,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         $request->session()->forget('needs_pin');
+        $request->session()->put('pin_verified', true);
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

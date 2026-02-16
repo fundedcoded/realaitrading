@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+            'account.setup' => \App\Http\Middleware\EnsureAccountSetup::class,
         ]);
         $middleware->web(append: [
             \App\Http\Middleware\SecurityHeaders::class,
