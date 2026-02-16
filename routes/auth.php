@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\VerificationCodeController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,29 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    // Email verification code routes
+    Route::get('verify-code', [VerificationCodeController::class, 'show'])
+        ->name('verify-code');
+
+    Route::post('verify-code', [VerificationCodeController::class, 'verify']);
+
+    Route::post('verify-code/resend', [VerificationCodeController::class, 'resend'])
+        ->middleware('throttle:3,1')
+        ->name('verify-code.resend');
+
+    // PIN creation routes
+    Route::get('create-pin', [VerificationCodeController::class, 'showCreatePin'])
+        ->name('create-pin');
+
+    Route::post('create-pin', [VerificationCodeController::class, 'storePin']);
+
+    // PIN entry routes
+    Route::get('enter-pin', [AuthenticatedSessionController::class, 'showEnterPin'])
+        ->name('enter-pin');
+
+    Route::post('enter-pin', [AuthenticatedSessionController::class, 'verifyPin']);
+
+    // Existing verification routes
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -57,3 +81,4 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
+

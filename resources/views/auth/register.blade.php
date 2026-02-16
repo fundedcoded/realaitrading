@@ -1,43 +1,61 @@
 <x-guest-layout>
+    <div class="animate-in">
+        <h1 class="text-3xl font-serif font-medium text-luxury-white mb-2">Create Account.</h1>
+        <p class="text-luxury-white/30 text-sm mb-8">Join 12,000+ traders using AI-powered execution.</p>
+    </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
         <!-- Name -->
-        <div>
-            <label for="name" class="block font-medium text-sm text-luxury-white/70">Name</label>
-            <input id="name" class="block mt-1 w-full bg-luxury-black/50 border-luxury-white/10 focus:border-luxury-gold focus:ring-luxury-gold/50 rounded-sm shadow-sm text-luxury-white" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        <div class="mb-5 animate-in animate-in-delay-1">
+            <label for="name" class="auth-label">Full Name</label>
+            <input id="name" class="auth-input" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="John Doe" />
+            @error('name')
+                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Email Address -->
-        <div class="mt-4">
-            <label for="email" class="block font-medium text-sm text-luxury-white/70">Email</label>
-            <input id="email" class="block mt-1 w-full bg-luxury-black/50 border-luxury-white/10 focus:border-luxury-gold focus:ring-luxury-gold/50 rounded-sm shadow-sm text-luxury-white" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="mb-5 animate-in animate-in-delay-2">
+            <label for="email" class="auth-label">Email Address</label>
+            <input id="email" class="auth-input" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="trader@example.com" />
+            @error('email')
+                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
-            <label for="password" class="block font-medium text-sm text-luxury-white/70">Password</label>
-            <input id="password" class="block mt-1 w-full bg-luxury-black/50 border-luxury-white/10 focus:border-luxury-gold focus:ring-luxury-gold/50 rounded-sm shadow-sm text-luxury-white" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="mb-5 animate-in animate-in-delay-3">
+            <label for="password" class="auth-label">Password</label>
+            <input id="password" class="auth-input" type="password" name="password" required autocomplete="new-password" placeholder="••••••••" />
+            @error('password')
+                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Confirm Password -->
-        <div class="mt-4">
-            <label for="password_confirmation" class="block font-medium text-sm text-luxury-white/70">Confirm Password</label>
-            <input id="password_confirmation" class="block mt-1 w-full bg-luxury-black/50 border-luxury-white/10 focus:border-luxury-gold focus:ring-luxury-gold/50 rounded-sm shadow-sm text-luxury-white" type="password" name="password_confirmation" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div class="mb-8 animate-in animate-in-delay-4">
+            <label for="password_confirmation" class="auth-label">Confirm Password</label>
+            <input id="password_confirmation" class="auth-input" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="••••••••" />
+            @error('password_confirmation')
+                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+            @enderror
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-luxury-white/40 hover:text-luxury-gold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-luxury-gold" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <button class="ms-4 btn-primary">
-                {{ __('Register') }}
+        <!-- Submit -->
+        <div class="animate-in animate-in-delay-5">
+            <button type="submit" class="auth-btn">
+                Create Account
             </button>
+        </div>
+
+        <!-- Login Link -->
+        <div class="mt-8 text-center animate-in animate-in-delay-5">
+            <span class="text-luxury-white/20 text-sm">Already have an account?</span>
+            <a href="{{ route('login') }}" class="text-sm text-luxury-gold hover:text-luxury-gold/80 transition-colors ml-1 font-medium">
+                Sign In
+            </a>
         </div>
     </form>
 </x-guest-layout>

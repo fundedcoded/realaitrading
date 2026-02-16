@@ -80,15 +80,64 @@
             <!-- Neural Void Canvas -->
             <canvas id="neural-canvas" class="absolute inset-0 z-0"></canvas>
             
-            <!-- Gradient Overlay for Text Readability -->
-            <div class="absolute inset-0 bg-gradient-to-b from-luxury-black/30 via-transparent to-luxury-black z-0 pointer-events-none"></div>
+            <!-- Gradient Overlays for Depth -->
+            <div class="absolute inset-0 bg-gradient-to-b from-luxury-black/40 via-transparent to-luxury-black z-0 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.03)_0%,_transparent_70%)] z-0 pointer-events-none"></div>
+
+            <!-- Floating Glass Metric — Left -->
+            <div class="hero-element opacity-0 translate-y-4 absolute left-6 lg:left-12 top-1/3 z-20 hidden lg:block">
+                <div class="px-5 py-4 rounded-2xl bg-luxury-black/40 backdrop-blur-xl border border-luxury-white/[0.06] shadow-2xl shadow-black/50">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shadow-[0_0_6px_rgba(74,222,128,0.5)]"></div>
+                        <span class="text-[9px] text-luxury-white/30 uppercase tracking-[0.2em] font-bold">Live Performance</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="text-2xl font-serif text-emerald-400">+847%</div>
+                            <div class="text-[8px] text-luxury-white/20 uppercase tracking-widest">Cumulative Returns</div>
+                        </div>
+                        <div class="w-full h-px bg-luxury-white/5"></div>
+                        <div>
+                            <div class="text-lg font-serif text-luxury-white/80">94.7%</div>
+                            <div class="text-[8px] text-luxury-white/20 uppercase tracking-widest">Win Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Glass Metric — Right -->
+            <div class="hero-element opacity-0 translate-y-4 absolute right-6 lg:right-12 top-1/3 z-20 hidden lg:block">
+                <div class="px-5 py-4 rounded-2xl bg-luxury-black/40 backdrop-blur-xl border border-luxury-white/[0.06] shadow-2xl shadow-black/50">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-1.5 h-1.5 rounded-full bg-luxury-gold animate-pulse"></div>
+                        <span class="text-[9px] text-luxury-white/30 uppercase tracking-[0.2em] font-bold">Capital Under AI</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="text-2xl font-serif text-luxury-gold">$2.4B+</div>
+                            <div class="text-[8px] text-luxury-white/20 uppercase tracking-widest">Assets Managed</div>
+                        </div>
+                        <div class="w-full h-px bg-luxury-white/5"></div>
+                        <div>
+                            <div class="text-lg font-serif text-luxury-white/80">12,000+</div>
+                            <div class="text-[8px] text-luxury-white/20 uppercase tracking-widest">Active Accounts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full text-center">
                 <div class="space-y-8 relative z-20">
                     <!-- Status Indicator -->
-                    <div class="hero-element opacity-0 translate-y-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-luxury-gold/5 border border-luxury-gold/20 backdrop-blur-md">
-                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
-                        <span class="text-luxury-gold text-xs tracking-[0.2em] uppercase font-bold">Systems Operational</span>
+                    <div class="hero-element opacity-0 translate-y-4 inline-flex items-center gap-3 px-5 py-2 rounded-full bg-luxury-black/30 backdrop-blur-xl border border-luxury-white/[0.08]">
+                        <span class="flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.6)]"></span>
+                            <span class="text-green-400 text-[10px] tracking-[0.2em] uppercase font-bold">Live</span>
+                        </span>
+                        <span class="w-px h-3 bg-luxury-white/10"></span>
+                        <span class="text-luxury-white/40 text-[10px] tracking-[0.15em] uppercase">Systems Operational</span>
+                        <span class="w-px h-3 bg-luxury-white/10"></span>
+                        <span class="text-luxury-gold text-[10px] tracking-[0.15em] uppercase font-bold">v4.2</span>
                     </div>
                     
                     <!-- Main Headline -->
@@ -103,20 +152,47 @@
                     
                     <!-- Subheadline -->
                     <div class="overflow-hidden">
-                        <p class="hero-element opacity-0 translate-y-4 mt-8 max-w-2xl mx-auto text-xl md:text-2xl text-luxury-white/80 font-light leading-relaxed">
-                            We deploy market-grade AI that trades every market with precision. <span class="text-luxury-white font-normal">Own the AI or grow your capital through us.</span> Zero emotion. Pure execution.
+                        <p class="hero-element opacity-0 translate-y-4 mt-8 max-w-2xl mx-auto text-lg md:text-xl text-luxury-white/50 font-light leading-relaxed">
+                            We deploy market-grade AI that trades every market with precision. <span class="text-luxury-white/90 font-normal">Own the AI or grow your capital through us.</span> Zero emotion. Pure execution.
                         </p>
                     </div>
                     
                     <!-- Buttons -->
-                    <div class="hero-element opacity-0 translate-y-4 mt-12 flex flex-col md:flex-row gap-6 justify-center items-center">
-                        <a href="{{ route('register') }}" class="btn-primary min-w-[220px] text-sm py-4 shadow-lg shadow-luxury-blue/20 hover:shadow-luxury-blue/40">
-                            Request Access
+                    <div class="hero-element opacity-0 translate-y-4 mt-12 flex flex-col md:flex-row gap-5 justify-center items-center">
+                        <a href="{{ route('register') }}" class="group relative min-w-[240px] text-sm py-4 px-8 rounded-full overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-r from-luxury-gold via-amber-500 to-luxury-gold bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] rounded-full"></div>
+                            <div class="absolute inset-[1px] bg-luxury-gold rounded-full group-hover:bg-gradient-to-r group-hover:from-luxury-gold group-hover:to-amber-500 transition-all duration-500"></div>
+                            <span class="relative z-10 text-luxury-black font-bold tracking-widest uppercase">Request Access</span>
                         </a>
-                        <a href="{{ route('login') }}" class="group flex items-center gap-2 px-8 py-4 rounded-full border border-luxury-white/10 hover:bg-luxury-white/5 transition-all duration-300">
-                            <span class="text-luxury-white text-sm tracking-widest uppercase">Live Terminal</span>
-                            <svg class="w-4 h-4 text-luxury-gold group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        <a href="{{ route('login') }}" class="group flex items-center gap-3 px-8 py-4 rounded-full border border-luxury-white/10 hover:border-luxury-white/20 hover:bg-luxury-white/[0.03] transition-all duration-500 backdrop-blur-sm">
+                            <span class="text-luxury-white/80 text-sm tracking-widest uppercase group-hover:text-luxury-white transition-colors">Live Terminal</span>
+                            <svg class="w-4 h-4 text-luxury-gold group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                         </a>
+                    </div>
+
+                    <!-- Trust Indicators Bar -->
+                    <div class="hero-element opacity-0 translate-y-4 mt-16 pt-8 border-t border-luxury-white/[0.04]">
+                        <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-luxury-gold/60" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                <span class="text-[10px] text-luxury-white/30 uppercase tracking-widest">Bank-Grade Security</span>
+                            </div>
+                            <div class="w-px h-3 bg-luxury-white/5 hidden md:block"></div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-luxury-gold/60" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                <span class="text-[10px] text-luxury-white/30 uppercase tracking-widest">Audited Performance</span>
+                            </div>
+                            <div class="w-px h-3 bg-luxury-white/5 hidden md:block"></div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-luxury-gold/60" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
+                                <span class="text-[10px] text-luxury-white/30 uppercase tracking-widest">12,000+ Active Clients</span>
+                            </div>
+                            <div class="w-px h-3 bg-luxury-white/5 hidden md:block"></div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-luxury-gold/60" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>
+                                <span class="text-[10px] text-luxury-white/30 uppercase tracking-widest">99.97% Uptime</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
